@@ -4,6 +4,9 @@ namespace App;
 
 use App\Command\Editor\UpdateCommand;
 use App\Command\EndProcessCommand;
+use App\Command\GetOrCreateAuthorCommand;
+use App\Command\GetOrCreateCommentCommand;
+use App\Command\GetOrCreateVideoCommand;
 use App\Command\Social\TikTok\PostCommand;
 use App\Command\Video\CreateCommand;
 use App\Command\Video\FinishCommand;
@@ -12,6 +15,7 @@ use App\Controller\DownloaderController;
 use App\Controller\Editor\Text\Preset\ListController;
 use App\Controller\Editor\UpdateController;
 use App\Controller\Render\DisplayController;
+use App\Controller\SaveController;
 use App\Controller\Social\TikTok\PostController;
 use App\Controller\Social\TikTok\VideoFileController;
 use App\Controller\Video\CreateController;
@@ -82,9 +86,14 @@ class App
             DatabaseConnection::UTF8_MB4
         ));
 
-        if ($path === '/') {
+        if ($path === '/save' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->protectUsingToken($authHeader, $config);
-            var_dump('test');
+            (new SaveController(
+                new GetOrCreateAuthorCommand($fetcher),
+                new GetOrCreateVideoCommand($fetcher),
+                new GetOrCreateCommentCommand($fetcher)
+            ))(file_get_contents('php://input'));
+
             exit;
         }
 
