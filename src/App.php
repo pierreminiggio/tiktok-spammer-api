@@ -16,6 +16,7 @@ use App\Controller\DownloaderController;
 use App\Controller\Editor\Text\Preset\ListController;
 use App\Controller\Editor\UpdateController;
 use App\Controller\GenerateCommentController;
+use App\Controller\PostedCommentController;
 use App\Controller\Render\DisplayController;
 use App\Controller\SaveCommentController;
 use App\Controller\SaveController;
@@ -112,6 +113,9 @@ class App
                 new VideoFromLinkQuery($fetcher),
                 new CommentVideoCommand($fetcher)
             ))(file_get_contents('php://input'));
+            exit;
+        } elseif ($path === '/posted-comments' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            (new PostedCommentController($fetcher))();
             exit;
         }
 
