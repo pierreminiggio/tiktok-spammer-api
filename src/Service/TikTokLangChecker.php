@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
+use App\Entity\Video;
 use App\Enum\LangEnum;
-use Exception;
 use PierreMiniggio\DatabaseFetcher\DatabaseFetcher;
 
 class TikTokLangChecker
@@ -13,31 +13,10 @@ class TikTokLangChecker
     {
     }
 
-    /**
-     * @throws Exception
-     */
-    public function check(string $link): string
+    public function check(Video $video): string
     {
-        $fetchedVideos = $this->fetcher->query(
-            $this->fetcher->createQuery(
-                'video'
-            )->select(
-                'id',
-                'caption'
-            )->where(
-                'link = :link'
-            ),
-            ['link' => $link]
-        );
 
-        if (! $fetchedVideos) {
-            throw new Exception('Not found');
-        }
-
-        $fetchedVideo = $fetchedVideos[0];
-        $caption = $fetchedVideo['caption'];
-
-        if ($this->isFrench($caption)) {
+        if ($this->isFrench($video->caption)) {
             return LangEnum::FR;
         }
 
@@ -49,7 +28,7 @@ class TikTokLangChecker
             )->where(
                 'video_id = :video_id'
             ),
-            ['video_id' => $fetchedVideo['id']]
+            ['video_id' => $video->id]
         );
 
         $commentsLang = $this->getLangFromComments($fetchedComments);

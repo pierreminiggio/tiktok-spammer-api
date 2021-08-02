@@ -2,6 +2,7 @@
 
 namespace Test\Service;
 
+use App\Query\VideoFromLinkQuery;
 use App\Service\TikTokLangChecker;
 use PHPUnit\Framework\TestCase;
 use PierreMiniggio\ConfigProvider\ConfigProvider;
@@ -40,12 +41,13 @@ class TikTokLangCheckerTest extends TestCase
         );
 
         $checker = new TikTokLangChecker($fetcher);
+        $query = new VideoFromLinkQuery($fetcher);
 
         foreach ($fetchedVideos as $fetchedVideo) {
             $expectedLocale = $fetchedVideo['expected_comment_locale'];
             self::assertSame(
                 $expectedLocale,
-                $checker->check($fetchedVideo['link']),
+                $checker->check($query->execute($fetchedVideo['link'])),
                 'Video '
                     . $fetchedVideo['id']
                     . ' should have been commented in '
