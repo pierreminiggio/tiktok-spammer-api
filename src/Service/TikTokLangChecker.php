@@ -68,6 +68,7 @@ class TikTokLangChecker
             'pourtoi',
             'c\'est',
             'c’est',
+            'c est',
             ' le ',
             ' la ',
             ' les ',
@@ -103,11 +104,22 @@ class TikTokLangChecker
             'tkt',
             'tekate',
             'j\'ai',
-            'j’ai'
+            'j’ai',
+            ' dirait ',
+            'trop',
+            'ça',
+            'oh',
+            'bg',
+            'j\'y',
+            'j’y',
+            'je ',
+            'nous ',
+            'vous',
+            ' dans '
         ];
 
         foreach ($frenchStuffs as $frenchStuff) {
-            if (str_contains($input, $frenchStuff)) {
+            if (str_contains(strtolower($input), $frenchStuff)) {
                 return true;
             }
         }
