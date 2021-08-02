@@ -51,6 +51,7 @@ class TikTokLangChecker
             'un pote',
             'pourtoi',
             'c\'est',
+            'c’est',
             ' le ',
             ' la '
         ];
