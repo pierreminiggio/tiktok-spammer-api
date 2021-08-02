@@ -115,7 +115,8 @@ class TikTokLangChecker
             'je ',
             'nous ',
             'vous',
-            ' dans '
+            ' dans ',
+            'cigarette'
         ];
 
         foreach ($frenchStuffs as $frenchStuff) {
