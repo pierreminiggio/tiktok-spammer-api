@@ -80,7 +80,10 @@ class App
             exit;
         }
 
-        header('Content-Type: application/json');
+        $isHtmlRoute = $path === '/posted-comments' && $_SERVER['REQUEST_METHOD'] === 'GET';
+        if (! $isHtmlRoute) {
+            header('Content-Type: application/json');
+        }
 
         $config = require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config.php';
 
