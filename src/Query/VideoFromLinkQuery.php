@@ -30,10 +30,10 @@ class VideoFromLinkQuery
                 'expected_comment_locale',
                 'comment'
             )->where(
-                'tiktok_id = :tiktok_id AND author_id = :author_id'
+                'link = :link'
             ),
             [
-                'link' => $link,
+                'link' => $link
             ]
         ];
 
