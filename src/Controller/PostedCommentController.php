@@ -33,7 +33,7 @@ class PostedCommentController
             $comment = $fetchedCommentedVideo['comment'];
 
             $commentedVideos .= <<<HTML
-                <li>Commenté le {$commentedAt->format('d/m/Y à H:i')}(<a href="$link" target="_blank">$link</a> : $comment</li>
+                <li>Commenté le {$commentedAt->format('d/m/Y à H:i')} <a href="$link" target="_blank">$link</a> : $comment</li>
             HTML;
 
         }
