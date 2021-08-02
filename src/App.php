@@ -102,6 +102,7 @@ class App
             ))(file_get_contents('php://input'));
             exit;
         } elseif ($path === '/generate-random-comment' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->protectUsingToken($authHeader, $config);
             (new GenerateCommentController(
                 new VideoFromLinkQuery($fetcher),
                 new TikTokLangChecker($fetcher),
@@ -109,6 +110,7 @@ class App
             ))(file_get_contents('php://input'));
             exit;
         } elseif ($path === '/save-comment' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->protectUsingToken($authHeader, $config);
             (new SaveCommentController(
                 new VideoFromLinkQuery($fetcher),
                 new CommentVideoCommand($fetcher)
