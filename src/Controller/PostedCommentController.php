@@ -27,6 +27,9 @@ class PostedCommentController
 
         $commentedVideos = '';
 
+        /** @var Array<string, bool> $commentedDays */
+        $commentedDays = [];
+
         foreach ($fetchedCommentedVideos as $fetchedCommentedVideo) {
             $commentedAt = new DateTimeImmutable($fetchedCommentedVideo['created_at']);
             $link = $fetchedCommentedVideo['link'];
@@ -36,10 +39,18 @@ class PostedCommentController
                 <li>Commenté le {$commentedAt->format('d/m/Y à H:i')} <a href="$link" target="_blank">$link</a> : $comment</li>
             HTML;
 
+            $dateKey = $commentedAt->format('Ymd');
+            if (! isset($commentedDays[$dateKey])) {
+                $commentedDays[$dateKey] = true;
+            }
         }
+
+        $numberOfComments = count($fetchedCommentedVideos);
+        $averageCommentingPerDay = $numberOfComments / count($commentedDays);
 
         echo <<<HTML
             <h1>Le bon spamming</h1>
+            <p>Le bot a déjà posté $numberOfComments commentaires, avec une moyenne de $averageCommentingPerDay par jour.</p>
             <ul>
                 $commentedVideos
             </ul>
