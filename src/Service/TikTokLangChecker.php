@@ -108,7 +108,7 @@ class TikTokLangChecker
             ' dirait ',
             'trop',
             'ça',
-            'oh',
+            ' ho ',
             'bg',
             'j\'y',
             'j’y',
