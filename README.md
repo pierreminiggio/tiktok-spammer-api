@@ -31,4 +31,12 @@ CREATE TABLE `tiktok_spammer`.`comment` (
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+
+CREATE TABLE `tiktok_spammer`.`random_comment` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `content` TEXT NOT NULL,
+    `locales` VARCHAR(255) NOT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
 ```

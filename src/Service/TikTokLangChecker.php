@@ -13,6 +13,9 @@ class TikTokLangChecker
     {
     }
 
+    /**
+     * @see LangEnum
+     */
     public function check(Video $video): string
     {
 

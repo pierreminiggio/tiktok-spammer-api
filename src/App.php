@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Command\CommentVideoCommand;
 use App\Command\Editor\UpdateCommand;
 use App\Command\EndProcessCommand;
 use App\Command\GetOrCreateAuthorCommand;
@@ -14,7 +15,9 @@ use App\Controller\DetailController;
 use App\Controller\DownloaderController;
 use App\Controller\Editor\Text\Preset\ListController;
 use App\Controller\Editor\UpdateController;
+use App\Controller\GenerateCommentController;
 use App\Controller\Render\DisplayController;
+use App\Controller\SaveCommentController;
 use App\Controller\SaveController;
 use App\Controller\Social\TikTok\PostController;
 use App\Controller\Social\TikTok\VideoFileController;
@@ -32,14 +35,17 @@ use App\Query\Account\TikTok\CanVideoBePostedOnThisTikTokAccountQuery;
 use App\Query\Account\TikTok\PredictedNextPostTimeQuery;
 use App\Query\Account\TikTok\VideoFileQuery;
 use App\Query\Editor\Preset\ListQuery;
+use App\Query\RandomCommentQuery;
 use App\Query\Render\CurrentRenderStatusForVideoQuery;
 use App\Query\ToProcessDetailQuery;
 use App\Query\ToProcessListQuery;
 use App\Query\Video\TikTok\CurrentUploadStatusForTiKTokQuery;
 use App\Query\Video\VideoDetailQuery;
+use App\Query\VideoFromLinkQuery;
 use App\Query\VideoLinkQuery;
 use App\Serializer\Serializer;
 use App\Serializer\SerializerInterface;
+use App\Service\TikTokLangChecker;
 use PierreMiniggio\DatabaseConnection\DatabaseConnection;
 use PierreMiniggio\DatabaseFetcher\DatabaseFetcher;
 use PierreMiniggio\MP4YoutubeVideoDownloader\Downloader;
@@ -93,7 +99,19 @@ class App
                 new GetOrCreateVideoCommand($fetcher),
                 new GetOrCreateCommentCommand($fetcher)
             ))(file_get_contents('php://input'));
-
+            exit;
+        } elseif ($path === '/generate-random-comment' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            (new GenerateCommentController(
+                new VideoFromLinkQuery($fetcher),
+                new TikTokLangChecker($fetcher),
+                new RandomCommentQuery($fetcher)
+            ))(file_get_contents('php://input'));
+            exit;
+        } elseif ($path === '/save-comment' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            (new SaveCommentController(
+                new VideoFromLinkQuery($fetcher),
+                new CommentVideoCommand($fetcher)
+            ))(file_get_contents('php://input'));
             exit;
         }
 
