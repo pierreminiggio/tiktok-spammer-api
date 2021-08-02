@@ -28,7 +28,7 @@
         "phpunit/phpunit": "10.0.x-dev"
     },
     "scripts": {
-        "test": "bash vendor/bin/phpunit tests/"
+        "test": "php vendor/bin/phpunit tests/"
     },
     "scripts-descriptions": {
         "test": "Run all tests!"
