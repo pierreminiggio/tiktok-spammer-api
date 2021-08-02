@@ -47,6 +47,12 @@ class GenerateCommentController
             return;
         }
 
+        if ($video->comment !== null) {
+            http_response_code(409);
+
+            return;
+        }
+
         if ($video->commentCount === 0) {
             $firstComments = ['First !', 'Preum\'s !', 'First gg izi'];
             echo $firstComments[array_rand($firstComments)];
