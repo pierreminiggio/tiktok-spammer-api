@@ -40,4 +40,5 @@ CREATE TABLE `tiktok_spammer`.`random_comment` (
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 ALTER TABLE `random_comment` CHANGE `content` `content` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+ALTER TABLE `comment` CHANGE `content` `content` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
 ```
