@@ -39,4 +39,5 @@ CREATE TABLE `tiktok_spammer`.`random_comment` (
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+ALTER TABLE `random_comment` CHANGE `content` `content` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
 ```
